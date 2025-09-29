@@ -6,17 +6,26 @@
 
 <h1>Formulaire qui sert à rien</h1>
 <mat-card style="width: 700px; margin: auto; padding: 20px;">
-  <form >
+  <form [formGroup]="formGroup">
 
     <mat-form-field style="width: 100%">
         <mat-label>Nom</mat-label>
-        <input matInput type="text" placeholder="Nom et prénom" name="name" >
-        
+        <input matInput type="text" placeholder="Nom et prénom" name="name" formControlName="name">
+        @if(formGroup.get('name')?.hasError('required')) {
+        <mat-error> Votre nom est <strong>requis</strong> </mat-error>
+        }
+            
     </mat-form-field>
 
     <mat-form-field style="width: 100%">
       <mat-label>Numéro de rue</mat-label>
-      <input matInput type="number" placeholder="5230" name="roadnumber">
+      <input matInput type="number" placeholder="5230" name="roadnumber" formControlName="roadnumber">
+      @if(formGroup.get('roadnumber')?.hasError('required')) {
+        <mat-error> Votre roadnumber est <strong>requis</strong> </mat-error>
+      } 
+        @if(formGroup.get('roadnumber')?.hasError('min') || formGroup.get('roadnumber')?.hasError('max')) {
+        <mat-error> Votre roadnumber doit etre entre 1000 et 9999 </mat-error>
+        }
       
     </mat-form-field>
 
